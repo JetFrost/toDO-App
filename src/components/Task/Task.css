@@ -1,0 +1,9 @@
+.task-body{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    align-items: center;
+    margin-top: 10px;
+    border-top: 2px solid silver;
+    border-bottom: 2px solid silver;
+}
