@@ -1,45 +1,44 @@
 import React from 'react';
-import Head from './components/Head/Head.js';
 import Task from './components/Task/Task.js';
-import './App.css';
+import './App.css'
 
 class App extends React.Component{
     constructor(props){
         super(props);
-        this.handleDelete = this.handleDelete.bind(this);
+        this.doneTasks = this.doneTask.bind(this);
         this.state = {
             tasks: [
-                { title: 'first'}
+                {id: 0, title: "First", done: false},
+                {id: 1, title: "Second", done: true},
+                {id: 2, title: "Third", done: false}
             ]
-        };
+        }
     }
 
-    handleDelete(i){
-        let newTasks = this.state.tasks.slice();
-        delete newTasks[i];
-        this.setState({
-            tasks: newTasks
-        }) 
-    }
-
-    handleAdd(value){
-        let newTasks = this.state.tasks.slice();
-        newTasks.push({title: value});
-        this.setState({
-            tasks: newTasks
-        }) 
+    doneTask(id){
+        const index = this.state.tasks.map(task => task.id).indexOf(id);
+        this.setState(state => {
+            let {tasks} = state;
+            tasks[index].done = true;
+            return tasks;
+        })
     }
 
     render(){
-        let tasks = this.state.tasks.map((task, i) => {
-            return (
-                <Task key={i} onClick={() => this.handleDelete(i)} title={this.state.tasks[i].title}/>
-            )
-        });
+        const { tasks } = this.state;
+        const activeTasks = tasks.filter(task => !task.done);
+        const doneTasks = tasks.filter(task => task.done);
+
         return(
-            <div className='app-body'>
-                <Head tasks={this.state.tasks.length}/>
-                {tasks}
+            <div className="app-body">
+                <h1 className="title">Количество невыполненых задач: { activeTasks.length }</h1>
+                {[...activeTasks, ...doneTasks].map(task => {
+                    return <Task 
+                            doneTask={() => this.doneTask(task.id)} 
+                            deleteTask={() => this.deleteTask(task.id)} 
+                            task={task} 
+                            key={task.id} />
+                })}
             </div>
         );
     }
