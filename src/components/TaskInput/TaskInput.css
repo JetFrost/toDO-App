@@ -1,0 +1,33 @@
+.ti-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #d6d6d6;
+    margin: 0;
+    padding: 10px 30px;
+    border-radius: 5px 5px 15px 15px;
+    margin-top: 10px;
+}
+.inp{
+    width: 600px;
+    padding: 5px 10px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid silver;
+    border-radius: 5px;
+    color: #6e6e6e;
+}
+.b{
+    border: 1px solid silver;
+    font-size: 14px;
+    padding: 5px;
+    background: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .1s;
+    color: #6e6e6e;
+    outline: none;
+}
+.b:hover{
+    background: #d6d6d6;
+}

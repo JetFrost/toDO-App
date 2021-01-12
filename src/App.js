@@ -1,11 +1,14 @@
 import React from 'react';
 import Task from './components/Task/Task.js';
-import './App.css'
+import TaskInput from './components/TaskInput/TaskInput.js';
+import './App.css';
 
 class App extends React.Component{
     constructor(props){
         super(props);
         this.doneTasks = this.doneTask.bind(this);
+        this.deleteTask = this.deleteTask.bind(this);
+        this.addTask = this.addTask.bind(this);
         this.state = {
             tasks: [
                 {id: 0, title: "First", done: false},
@@ -15,6 +18,18 @@ class App extends React.Component{
         }
     }
 
+    addTask(task){
+        this.setState(state => {
+            let {tasks} = state;
+            tasks.push({
+                id: tasks.length !== 0 ? tasks.length : 0,
+                title: task,
+                done: false
+            })
+            return tasks;
+        });
+
+    }
     doneTask(id){
         const index = this.state.tasks.map(task => task.id).indexOf(id);
         this.setState(state => {
@@ -22,6 +37,14 @@ class App extends React.Component{
             tasks[index].done = true;
             return tasks;
         })
+    }
+    deleteTask(id){
+        const index = this.state.tasks.map(task => task.id).indexOf(id);
+        this.setState(state => {
+            let {tasks} = state;
+            delete tasks[index];
+            return tasks;
+        });
     }
 
     render(){
@@ -39,6 +62,8 @@ class App extends React.Component{
                             task={task} 
                             key={task.id} />
                 })}
+                <TaskInput addTask={this.addTask}/>
+                
             </div>
         );
     }
